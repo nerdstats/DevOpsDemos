@@ -34,11 +34,11 @@
 1. Create a Route53 private hosted zone (you can create Public hosted zone if you have a domain)
 1. create an S3 bucket 
    ```sh
-    aws s3 mb s3://dev.k8s.nerdstats.us
+    aws s3 mb s3://dev.k8s.nerdstats.aws
    ```
 1. Expose environment variable:
    ```sh 
-    export KOPS_STATE_STORE=s3://dev.k8s.nerdstats.us
+    export KOPS_STATE_STORE=s3://dev.k8s.nerdstats.aws
    ```
 1. Create sshkeys before creating cluster
    ```sh
@@ -46,11 +46,11 @@
    ```
 1. Create kubernetes cluster definitions on S3 bucket 
    ```sh 
-    kops create cluster --cloud=aws --zones=us-west-2c --name=dev.k8s.nerdstats.us --dns-zone=nerdstats.ca --dns private
+    kops create cluster --cloud=aws --zones=us-west-2c --name=dev.k8s.nerdstats.aws --dns-zone=nerdstats.aws --dns private
     ```
 1. Create kubernetes cluser
     ```sh 
-      kops update cluster dev.nerdstats.us --yes
+      kops update cluster --name dev.k8s.nerdstats.aws --yes
      ```
 1. Validate your cluster 
      ```sh 
