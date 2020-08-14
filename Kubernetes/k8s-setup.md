@@ -6,7 +6,7 @@
 1. install AWSCLI
    ```sh 
     curl https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -o awscli-bundle.zip
-    apt install unzip python
+    sudo apt install unzip python
     unzip awscli-bundle.zip
     #sudo apt-get install unzip - if you dont have unzip in your system
     ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
@@ -63,19 +63,48 @@
    ```
 
 #### Deploying Nginx container on Kubernetes 
-1. Deploying Nginx Container
-    ```sh 
-      kubectl run sample-nginx --image=nginx --replicas=2 --port=80
-      kubectl get pods
+1. 
+   ```sh
+      kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
       kubectl get deployments
+      kubectl get pods
+    
+#### Updating Nginx container updates on Kubernetes 
+2.          
+   ```sh
+      kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1 --record
+      kubectl rollout status deployment.v1.apps/nginx-deployment
+      kubectl get pods
+      kubectl describe deployments
+      kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
+      kubectl rollout status deployment.v1.apps/nginx-deployment
+      kubectl get rs
+      kubectl get pods
+      kubectl describe deployment
    ```
-   
-1. Expose the deployment as service. This will create an ELB in front of those 2 containers and allow us to publicly access them:
+ #### Rolling back Nginx container updates on Kubernetes 
+3.      
+   ```sh
+      kubectl rollout history deployment.v1.apps/nginx-deployment
+      kubectl rollout history deployment.v1.apps/nginx-deployment --revision=2
+      kubectl rollout undo deployment.v1.apps/nginx-deployment --to-revision=2
+      kubectl get deployment nginx-deployment
+      kubectl describe deployment nginx-deployment
+    ``` 
+ #### Scaling Deployment on Kubernetes (Vertical, Horizonal)
+4.       
+   ```sh 
+      kubectl scale deployment.v1.apps/nginx-deployment --replicas=10
+      kubectl autoscale deployment.v1.apps/nginx-deployment --min=10 --max=15 --cpu-percent=80
+  
+#### Expose a deployment as a service Kubernetes 
+5. Expose the deployment as service. This will create an ELB in front of those 2 containers and allow us to publicly access them:
    ```sh 
     kubectl expose deployment sample-nginx --port=80 --type=LoadBalancer
     kubectl get services -o wide
-    ```
- 1. To delete cluster
+  
+#### Delete cluster Kubernetes 
+ 6. 
     ```sh
      kops delete cluster dev.k8s.valaxy.in --yes
-    ```
+  
