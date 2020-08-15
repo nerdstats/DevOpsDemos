@@ -106,5 +106,5 @@
 #### Delete cluster Kubernetes 
  6. 
     ```sh
-     kops delete cluster dev.k8s.valaxy.in --yes
+     kops delete cluster dev.k8s.nerdstats.aws --yes
   
