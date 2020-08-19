@@ -54,7 +54,7 @@
      ```
 1. Validate your cluster 
      ```sh 
-      kops validate cluster
+       kops validate cluster --wait 10m
     ```
 
 1. To list nodes
