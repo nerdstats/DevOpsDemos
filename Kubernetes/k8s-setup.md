@@ -49,6 +49,8 @@
 1. Create kubernetes cluster definitions on S3 bucket 
    ```sh 
     kops create cluster --cloud=aws --zones=us-west-2c --name=dev.k8s.nerdstats.aws --dns-zone=nerdstats.aws --dns private
+    
+    kops create cluster --cloud=aws --name=dev.k8s.nerdstats.aws --zones=us-west-2a,us-west-2b,us-west-2c --dns-zone=nerdstats.aws --dns private --node-count=5 --state=s3://dev.k8s.nerdstats.aws --yes
     ```
 1. Create kubernetes cluser
     ```sh 
