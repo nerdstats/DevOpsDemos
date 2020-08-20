@@ -35,6 +35,8 @@
 1. create an S3 bucket 
    ```sh
     aws s3 mb s3://dev.k8s.nerdstats.aws
+    #To be able to revert to a previous version 
+    aws s3api put-bucket-versioning --bucket kubernetes-aws-io --versioning-configuration Status=Enabled
    ```
 1. Expose environment variable:
    ```sh 
